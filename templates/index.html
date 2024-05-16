@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Add the Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gesture Recognition App</title>
+    
+    <link rel="icon" href="../static/—Pngtree—lamp bulb lights idea vector_4005154.png"  type="image/x-icon">
+</head>
+<body>
+
+    <!-- Bootstrap container to center the content -->
+    <div class="container-fluid">
+
+        <!-- Bootstrap row and column for the header -->
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <h1 id="head" style="text-align: left;">Gesture to Text Conversion System<span style="color: rgb(50, 205, 50, 0.5);font-weight: bolder;">.</span></h1>
+            </div>
+            <div class="col-md-6 text-center" id="menu"  onclick="myFunction(this)">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+                <div class="dropdown-content">
+                    <a href="#" onclick="setLanguage('english'); runInference();" style="text-decoration: none; color: rgb(68, 81, 78);">Start Translating <br/><span>(English)</span></a>
+                    <a href="#" onclick="setLanguage('malayalam'); malrunInference();" style="text-decoration: none; color: rgb(68, 81, 78);">Start Translating <br/><span>(Malayalam)</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="about" style=" height: max-content; width: 90vh; margin-top: 150px;">
+            <div class="row-md-12-fluid" >
+                <h2 id="sub-head" >Welcome</h2>
+            </div>
+            <div class="row-md-12" style="padding-top: 30px;padding-left: 30px;padding-right: 30px;padding-bottom: 0px">
+                <p class="d-flex">
+                    This project is dedicated to a transformative communication journey with our gesture-based character recognition system,
+                    designed to empower the hearing-impaired community. Revolutionizing real-time interaction, this innovative solution 
+                    captures hand gestures through a webcam, enabling seamless communication. Customized gestures for a personalized touch, 
+                    fostering inclusivity for regional languages. Save and construct meaningful sentences effortlessly, 
+                    featuring convenient options like backspace and reset. Join us in breaking communication barriers and creating a more 
+                    connected world.
+                </p>
+            </div>
+            <div class="dropdown-container" style="margin: 20px;">
+                <div class="dropdown show text-center" >
+                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Select Language
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="background-color: rgb(255, 255, 255, 0.8);">
+                      <a class="dropdown-item" href="#" onclick="setLanguage('english'); updateDropdownText('English')" style="font-weight: bolder;color: gray;">English</a>
+                      <a class="dropdown-item" href="#" onclick="setLanguage('malayalam'); updateDropdownText('Malayalam')" style="font-weight: bolder;color: gray;">Malayalam</a>
+                      <a class="dropdown-item" href="#" onclick="setLanguage('custom'); updateDropdownText('Word Mode')" style="font-weight: bolder;color: gray;">Word Mode</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row-md-12" id="btn" style="text-align: center;">
+                <button id="startTranslatingButton" onclick="startTranslating()" style="font-weight: bolder;">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Start Translating
+                </button>
+            </div>
+            
+
+
+
+
+
+
+
+
+        <!-- Bootstrap row and column for the hidden welcome message and button -->
+        <div class="row mt-3">
+            <div class="col-md-12 text-center">
+                <h1 hidden>Welcome to Gesture Recognition App</h1>
+                <button hidden onclick="startTranslating()" class="btn btn-primary">Run Inference</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap script tags for jQuery and Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+        var selectedLanguage = ''; // Variable to store the selected language
+
+        // Function to set the selected language
+        function setLanguage(language) {
+            selectedLanguage = language;
+        }
+
+        // Function to update the dropdown text with the selected language
+        function updateDropdownText(language) {
+            document.getElementById('dropdownMenuLink').innerHTML = language;
+        }
+
+        // Function to start translating based on the selected language
+        function startTranslating() {
+            if (selectedLanguage === 'english') {
+                runInference();
+            } else if (selectedLanguage === 'malayalam') {
+                malrunInference();
+            } else if (selectedLanguage === 'custom') {
+                custrunInference();
+            } else {
+                alert('Please select a language.');
+            }
+        }
+
+        // Function to run inference for English
+        function runInference() {
+            fetch('/run_inference')
+                .then(response => response.text())
+                .then(message => alert(message))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to run inference for Malayalam
+        function malrunInference() {
+            fetch('/mal_run_inference')
+                .then(response => response.text())
+                .then(message => alert(message))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to run inference for Malayalam
+        function custrunInference() {
+            fetch('/cust_run_inference')
+                .then(response => response.text())
+                .then(message => alert(message))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Function to toggle the dropdown menu
+        function myFunction(x) {
+            x.classList.toggle("change");
+            var dropdownContent = x.querySelector('.dropdown-content');
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        }
+    </script>
+    <style>
+        .dropdown-container {
+            text-align: center;
+        }
+    </style>
+</body>
+</html>
