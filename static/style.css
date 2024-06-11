@@ -13,6 +13,13 @@ body{
     padding-top: 30px;
     color: rgb(68, 81, 78, 0.5);
     font-weight: bolder;
+    
+}
+#menu {
+  cursor: pointer;
+  padding-top: 30px;
+  color: rgb(68, 81, 78, 0.5);
+  font-weight: bolder;
 }
 #sub-head{
     color:#616d66;
@@ -21,14 +28,14 @@ body{
     
 }
 p{
-    text-align: justify;
+    text-align: start;
     font-weight: bold;
     color: rgb(68, 81, 78);
     font-style: oblique;
 }
 #about{
     background-color: rgb(255, 255, 255, 0.5);
-    border-radius: 5%;
+    border-radius: 22px;
 }
 select, textarea {
     
@@ -130,6 +137,8 @@ button {
         left: 100%;
       }
   }
+
+  /*
   #menu {
     display: inline-block;
     cursor: pointer;
@@ -138,7 +147,19 @@ button {
     color: rgb(68, 81, 78, 0.5);
     font-weight: bolder;
   }
-  
+  */
+
+  .bar1, .bar2, .bar3 {
+    width: 35px;
+    min-height: 3px; /* Example min-height */
+    max-height: 5px; /* Example max-height */
+    background-color: rgb(68, 81, 78, 0.5);
+    margin: 6px 0;
+    transition: 0.4s;
+    
+}
+
+/*
   .bar1, .bar2, .bar3 {
     width: 35px;
     height: 5px;
@@ -146,6 +167,7 @@ button {
     margin: 6px 0;
     transition: 0.4s;
   }
+  */
   
   .change .bar1 {
     transform: translate(0, 11px) rotate(-45deg);
@@ -204,4 +226,14 @@ button {
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
   .show {display:block;}
   
-   
+  #fixedHeading{
+    position: fixed;
+    top: 0;
+  }
+  
+  @media (max-width: 420px) {
+    #head {
+      font-size: 20px; 
+    }
+  }
+  
